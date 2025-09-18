@@ -2,8 +2,9 @@
 // 11/09/2025
 // Version: 1
 // Astronomical Processing
-// 
-// Inputs, Processes, Outputs
+// Program allows you to enter 24 random integers and sort them / modify them / search for a integer
+// To sort it uses a bubble sort, to search it uses a binary search method
+
 
 
 using System.Text;
@@ -25,60 +26,37 @@ namespace AstronomicalProcessing
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private readonly Regex _int = new(@"^-?\d+$");
         bool Sorted = false;
         public MainWindow()
         {
             InitializeComponent();
-           
         }
 
         private void BtnRandClick_Click(object sender, RoutedEventArgs e)
         {
-            if(AstroDataLBX.Items.Count >= 23)
+            if(AstroDataLBX.Items.Count >= 23) // clears it so the ListBox cant go over 24 integers
             {
                 AstroDataLBX.Items.Clear();
             }
-            if (!(AstroDataLBX.Items.Count >= 24))
+            if (!(AstroDataLBX.Items.Count >= 24)) // fills the list with random integers
             {
                 for (int i = 0; i < 24; i++)
                 {
                     Random random = new Random();
                     AstroDataLBX.Items.Add(random.Next(10, 91));
                 }
-                StatusMessage("Added Element");
                 Sorted = false;
             }
             else
             {
                 MessageBox.Show("Already have 24 elements in the list", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private void BtnSort_Click(object sender, RoutedEventArgs e)
         {
-            if (AstroDataLBX.Items.Count != 0)
-            {
-                for (int i = 0; i < AstroDataLBX.Items.Count; i++)
-                {
-
-                    for (int j = 0; j < AstroDataLBX.Items.Count; j++)
-                    {
-                        int num1 = int.Parse(AstroDataLBX.Items[i].ToString());
-                        int num2 = int.Parse(AstroDataLBX.Items[j].ToString());
-
-                        if (num1 < num2)
-                        {
-                            AstroDataLBX.Items[i] = num2;
-                            AstroDataLBX.Items[j] = num1;
-                        }
-                    }
-                }
-                Sorted = true;
-                StatusMessage("Sorted Elements");
-            }
+            sort();
         }// end sort
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
@@ -88,15 +66,15 @@ namespace AstronomicalProcessing
             int max = AstroDataLBX.Items.Count;
             int mid = (min + max) / 2;
 
-                while (min != max || int.Parse(AstroDataLBX.Items[mid].ToString()) != int.Parse(SearchBox.Text))
+                while (min != max || int.Parse(AstroDataLBX.Items[mid].ToString()) != int.Parse(SearchBox.Text)) // keeps in loop whilst it finds the number
                 {
-                    if (int.Parse(SearchBox.Text) > int.Parse(AstroDataLBX.Items[mid].ToString()))
+                    if (int.Parse(SearchBox.Text) > int.Parse(AstroDataLBX.Items[mid].ToString())) // If number is greater then mid min = mid
                     {
                         min = mid;
                         mid = (min + max) / 2;
                     }
 
-                    else if (int.Parse(SearchBox.Text) < int.Parse(AstroDataLBX.Items[mid].ToString()))
+                    else if (int.Parse(SearchBox.Text) < int.Parse(AstroDataLBX.Items[mid].ToString())) // if number is less then mid max = mid
                     {
                         max = mid;
                         mid = (min + max) / 2;
@@ -105,7 +83,7 @@ namespace AstronomicalProcessing
                     if (int.Parse(AstroDataLBX.Items[mid].ToString()) == int.Parse(SearchBox.Text))
                     {
                         AstroDataLBX.SelectedIndex = mid;
-                        MessageBox.Show("Item found", "Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show($"Item found at index: {AstroDataLBX.SelectedIndex + 1}", "Found", MessageBoxButton.OK, MessageBoxImage.Information);
                         AstroDataLBX.ScrollIntoView(AstroDataLBX.SelectedIndex);
                         break;
                     }
@@ -121,7 +99,7 @@ namespace AstronomicalProcessing
                     }
                 }
             }
-            else if (AstroDataLBX.Items.Count <= 0)
+            else if (AstroDataLBX.Items.Count <= 0) // fail safes to prevent errors
             {
                 MessageBox.Show("Please input data into the list before searching", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -142,7 +120,7 @@ namespace AstronomicalProcessing
             if(InputBox.Text.Length > 0 && AstroDataLBX.SelectedItem != null)
             {
                 bool isDigit = true;
-                foreach(char c in InputBox.Text)
+                foreach(char c in InputBox.Text) // Checks to see if the input is a digit before inputing it 
                 {
                     if (!Char.IsDigit(c))
                     {
@@ -150,13 +128,13 @@ namespace AstronomicalProcessing
                         break;
                     }
                 }
-                if (isDigit == true)
+                if (isDigit == true) // if it is a digit it allows you to input data
                 {
                     int selectedIndex = AstroDataLBX.SelectedIndex;
                     int.TryParse(InputBox.Text, out int value);
                     AstroDataLBX.Items.RemoveAt(selectedIndex);
                     AstroDataLBX.Items.Add(value);
-                    StatusMessage("Replaced Element");
+                    sort();
                 }
                 else
                 {
@@ -164,7 +142,7 @@ namespace AstronomicalProcessing
                 }
                 Sorted = false;
             }
-            else if(AstroDataLBX.Items.Count == 0)
+            else if(AstroDataLBX.Items.Count == 0) // fail safes to prevent errors
             {
                 MessageBox.Show("Please input data into the list before modifying", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
@@ -178,17 +156,12 @@ namespace AstronomicalProcessing
             }
         }// end input
 
-        public void StatusMessage(string message)
-        {
-            StatusTxt.Text = $"Status: {message}";
-        }
-
-        private void TextGotFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void TextGotFocus(object sender, KeyboardFocusChangedEventArgs e) // fades text out search box out when in focus
         {
             SearchFieldtxt.Text = "";
         }
 
-        private void TextNotFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void TextNotFocus(object sender, KeyboardFocusChangedEventArgs e) // fades text back in search box out when out of focus
         {
             if (SearchBox.Text.Length == 0)
             {
@@ -196,16 +169,38 @@ namespace AstronomicalProcessing
             }
         }
 
-        private void InputGotFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void InputGotFocus(object sender, KeyboardFocusChangedEventArgs e) // fades text out input box out when in focus
         {
             InputFieldtxt.Text = "";
         }
 
-        private void InputNotFocus(object sender, KeyboardFocusChangedEventArgs e)
+        private void InputNotFocus(object sender, KeyboardFocusChangedEventArgs e) // fades text back in input box out when out of focus
         {
-            if (SearchBox.Text.Length == 0)
+            if (InputBox.Text.Length == 0)
             {
                 InputFieldtxt.Text = "Enter data to input";
+            }
+        }
+
+        public void sort()
+        {
+            if (AstroDataLBX.Items.Count != 0)
+            {
+                for (int i = 0; i < AstroDataLBX.Items.Count; i++)
+                {
+                    for (int j = 0; j < AstroDataLBX.Items.Count; j++)
+                    {
+                        int num1 = int.Parse(AstroDataLBX.Items[i].ToString());
+                        int num2 = int.Parse(AstroDataLBX.Items[j].ToString());
+
+                        if (num1 < num2) // swaps the numbers around if number 1 is less then number 2 
+                        {
+                            AstroDataLBX.Items[i] = num2;
+                            AstroDataLBX.Items[j] = num1;
+                        }
+                    }
+                }
+                Sorted = true;
             }
         }
     }

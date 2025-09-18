@@ -1,4 +1,13 @@
-﻿<Window x:Class="AstronomicalProcessing.MainWindow"
+﻿<!--  
+ Charlie Caldwell, CharliesTeam, Sprint 1
+ 11/09/2025
+ Version: 1
+ Astronomical Processing
+ Program allows you to enter 24 random integers and sort them / modify them / search for a integer
+ To sort it uses a bubble sort, to search it uses a binary search method 
+-->
+    
+    <Window x:Class="AstronomicalProcessing.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -30,17 +39,16 @@
             <Button x:Name="InputBtn" Content="Enter" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-50,11,0" Click="BtnInput_Click"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5,0,0,0" >
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="6,0,0,0" >
             <Button x:Name="SortBtn" Content="Sort" Width="140" Height="25" Click="BtnSort_Click" Background="#FFDDDDDD"/>
             <Button x:Name="RandomBtn" Content="Random" Width="140" Height="25" Click="BtnRandClick_Click"/>
         </StackPanel>
 
-        <TextBlock x:Name="SearchFieldtxt" Text="Enter Search data" Margin="-100,36,10,147" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" />
-        <TextBlock x:Name="InputFieldtxt" Text="Enter data to input" Margin="20,94,130,94" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" />
-        <TextBlock Text="Search:" Margin="10,11,10,172" FontSize="15" Foreground="White" />
-        <TextBlock Text="Input:" Margin="10,71,10,112" FontSize="15" Foreground="White"/>
+        <TextBlock x:Name="SearchFieldtxt" Text="Enter Search data" Margin="10,39,140,152" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" RenderTransformOrigin="0.335,0.394" />
+        <TextBlock x:Name="InputFieldtxt" Text="Enter data to input" Margin="10,99,140,89" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" />
+        <TextBlock Text="Search:" Margin="10,11,10,172" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
+        <TextBlock Text="Input:" Margin="10,71,10,112" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
         <TextBlock Text="List Of Data:" HorizontalAlignment="Center" Margin="25,11" FontSize="15" Grid.Column="1" Foreground="White"/>
-        <TextBlock x:Name="StatusTxt" Text="Status: " Grid.Column="0" FontSize="15"  Background="White" Grid.Row="2" HorizontalAlignment="Center" Width="300" Height="25" Margin="0,113,-20,0"/>
         <ListBox x:Name="AstroDataLBX" Margin="10,30,10,10" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Width="250" Height="353" Background="White" BorderBrush="Black" Foreground="Black" FontSize="15"/>
 
     </Grid>
