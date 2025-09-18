@@ -21,8 +21,6 @@
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -30,26 +28,35 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,43">
-            <TextBox x:Name="SearchBox"  HorizontalAlignment="Center" Height="30" Width="230" Margin="-40,31,10,10" FontSize="15" FontWeight="SemiBold" GotKeyboardFocus="TextGotFocus" LostKeyboardFocus="TextNotFocus"/>
-            <Button x:Name="SearchBtn" Content="Enter" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-50,11,0" Click="BtnSearch_Click"/>
-
-
+        <StackPanel Orientation="Vertical" Margin="0,0,0,43">
+            <TextBox x:Name="SearchBox"  HorizontalAlignment="Center" Height="30" Width="200" Margin="-66.5,31,10,10" FontSize="15" FontWeight="SemiBold" GotKeyboardFocus="TextGotFocus" LostKeyboardFocus="TextNotFocus"/>
             <TextBox x:Name="InputBox" HorizontalAlignment="Center" Height="30" Width="230" Margin="-40,20,10,10" FontSize="15" FontWeight="SemiBold" BorderBrush="#FFABADB3" GotKeyboardFocus="InputGotFocus" LostKeyboardFocus="InputNotFocus"/>
-            <Button x:Name="InputBtn" Content="Enter" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-50,11,0" Click="BtnInput_Click"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="6,0,0,0" >
+        <StackPanel Orientation="Horizontal" Margin="9,-80,0,0" >
             <Button x:Name="SortBtn" Content="Sort" Width="140" Height="25" Click="BtnSort_Click" Background="#FFDDDDDD"/>
             <Button x:Name="RandomBtn" Content="Random" Width="140" Height="25" Click="BtnRandClick_Click"/>
         </StackPanel>
 
-        <TextBlock x:Name="SearchFieldtxt" Text="Enter Search data" Margin="10,39,140,152" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" RenderTransformOrigin="0.335,0.394" />
-        <TextBlock x:Name="InputFieldtxt" Text="Enter data to input" Margin="10,99,140,89" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" />
-        <TextBlock Text="Search:" Margin="10,11,10,172" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
-        <TextBlock Text="Input:" Margin="10,71,10,112" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
-        <TextBlock Text="List Of Data:" HorizontalAlignment="Center" Margin="25,11" FontSize="15" Grid.Column="1" Foreground="White"/>
-        <ListBox x:Name="AstroDataLBX" Margin="10,30,10,10" Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" Width="250" Height="353" Background="White" BorderBrush="Black" Foreground="Black" FontSize="15"/>
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="LSearchBtn" Content="L" Width="50" Height="30" Grid.Row="0" HorizontalAlignment="Right" Margin="181,-301,0,0" Click="BtnLSearch_Click" RenderTransformOrigin="-0.618,0.62" ToolTip="Uses Sequential Search to find item"/>
+            <Button x:Name="BSearchBtn" Content="B" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-301,0,0" Click="BtnBSearch_Click" ToolTip="Uses Binary Search to find item"/>
+        </StackPanel>
 
+        <StackPanel Orientation="Horizontal" Margin="9.5,20,0,0">
+            <TextBlock x:Name="MidEx"   Text="" Height="25" Width="69.7" Background="White" ToolTip="Mid-Extreme"   FontSize="18" TextAlignment="Center" />
+            <TextBlock x:Name="Mode"    Text="" Height="25" Width="69.7" Background="White" ToolTip="Mode"          FontSize="18" TextAlignment="Center" />
+            <TextBlock x:Name="Average" Text="" Height="25" Width="69.7" Background="White" ToolTip="Average"       FontSize="18" TextAlignment="Center" />
+            <TextBlock x:Name="Range"   Text="" Height="25" Width="69.7" Background="White" ToolTip="Range"         FontSize="18" TextAlignment="Center" />
+        </StackPanel>
+
+        <TextBlock x:Name="SearchFieldtxt" Text="Enter Search data" Margin="10,39,140,327" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" RenderTransformOrigin="0.335,0.394" />
+        <TextBlock x:Name="InputFieldtxt" Text="Enter data to input" Margin="10,99,140,272" FontSize="15" Foreground="Gray" Width="150" IsHitTestVisible="False" />
+        <TextBlock Text="Search:" Margin="10,11,10,359" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
+        <TextBlock Text="Input:" Margin="10,71,10,302" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
+        <TextBlock Text="List Of Data:" HorizontalAlignment="Center" Margin="25,11" FontSize="15" Grid.Column="1" Foreground="White"/>
+        <ListBox x:Name="AstroDataLBX" Margin="10,30,10,10" Grid.Column="1" Width="250" Height="353" Background="White" BorderBrush="Black" Foreground="Black" FontSize="15"/>
+        <Button x:Name="InputBtn" Content="Enter" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-181,11,0" Click="BtnInput_Click"/>
+        <Button x:Name="CalcBtn" Content="Calculate" Width="280" Margin="5,-30,0,0" Height="25" Click="BtCalcClick_Click"/>
     </Grid>
 </Window>

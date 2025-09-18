@@ -7,6 +7,7 @@
 
 
 
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -59,8 +60,13 @@ namespace AstronomicalProcessing
             sort();
         }// end sort
 
-        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        private void BtnBSearch_Click(object sender, RoutedEventArgs e)
         {
+            if (Sorted == false && SearchBox.Text.Length > 0)
+            {
+                sort();
+            }
+
             if(SearchBox.Text.Length > 0 && Sorted == true && _int.IsMatch(SearchBox.Text)){ 
             int min = 0;
             int max = AstroDataLBX.Items.Count;
@@ -102,10 +108,6 @@ namespace AstronomicalProcessing
             else if (AstroDataLBX.Items.Count <= 0) // fail safes to prevent errors
             {
                 MessageBox.Show("Please input data into the list before searching", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-            else if(Sorted == false)
-            {
-                MessageBox.Show("Please sort the list before searching", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else if(!_int.IsMatch(SearchBox.Text))
             {
@@ -202,6 +204,38 @@ namespace AstronomicalProcessing
                 }
                 Sorted = true;
             }
-        }
+        } // end sort
+
+        private void BtnLSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (SearchBox.Text.Length > 0) {
+                for (int i = 0; i < AstroDataLBX.Items.Count; i++)
+                {
+                    if (SearchBox.Text.Equals(AstroDataLBX.Items[i].ToString()))
+                    {
+                        AstroDataLBX.SelectedIndex = i;
+                        MessageBox.Show($"Item found at index: {AstroDataLBX.SelectedIndex + 1}", "Found", MessageBoxButton.OK, MessageBoxImage.Information);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Please input a valid integer", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        } // end BtnLSearch_Click
+
+        private void BtCalcClick_Click(object sender, RoutedEventArgs e)
+        {
+            if (AstroDataLBX.Items.Count > 0)
+            {
+                sort();
+                int max = int.Parse(AstroDataLBX.Items[^1].ToString());
+                int min = int.Parse(AstroDataLBX.Items[0].ToString());
+                double mid = ((double)max + min) / 2;
+                MidEx.Text = mid.ToString();
+            }
+
+        }// end BtCalcClick_CLick
     }
 }
