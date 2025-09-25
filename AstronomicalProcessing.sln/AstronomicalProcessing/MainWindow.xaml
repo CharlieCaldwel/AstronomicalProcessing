@@ -1,10 +1,10 @@
 ﻿<!--  
- Charlie Caldwell, CharliesTeam, Sprint 1
- 11/09/2025
- Version: 1
+ Charlie Caldwell, CharliesTeam, Sprint 2
+ 25/09/2025
+ Version: 1.5
  Astronomical Processing
  Program allows you to enter 24 random integers and sort them / modify them / search for a integer
- To sort it uses a bubble sort, to search it uses a binary search method 
+ To sort it uses a bubble sort / Sequential Search, to search it uses a binary search method, it displays Mode, Mid-Extreme, Average, Range
 -->
     
     <Window x:Class="AstronomicalProcessing.MainWindow"
@@ -34,12 +34,12 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="9,-80,0,0" >
-            <Button x:Name="SortBtn" Content="Sort" Width="140" Height="25" Click="BtnSort_Click" Background="#FFDDDDDD"/>
-            <Button x:Name="RandomBtn" Content="Random" Width="140" Height="25" Click="BtnRandClick_Click"/>
+            <Button x:Name="SortBtn" Content="Sort" Width="140" Height="25" Click="BtnSort_Click" Background="#FFDDDDDD" ToolTip="Sorts the list from Smallest > Largest"/>
+            <Button x:Name="RandomBtn" Content="Random" Width="140" Height="25" Click="BtnRandClick_Click" ToolTip="Randomizes the list with 24 random integers between 10 - 90"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal">
-            <Button x:Name="LSearchBtn" Content="L" Width="50" Height="30" Grid.Row="0" HorizontalAlignment="Right" Margin="181,-301,0,0" Click="BtnLSearch_Click" RenderTransformOrigin="-0.618,0.62" ToolTip="Uses Sequential Search to find item"/>
+            <Button x:Name="LSearchBtn" Content="S" Width="50" Height="30" Grid.Row="0" HorizontalAlignment="Right" Margin="181,-301,0,0" Click="BtnLSearch_Click" RenderTransformOrigin="-0.618,0.62" ToolTip="Uses Sequential Search to find item"/>
             <Button x:Name="BSearchBtn" Content="B" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-301,0,0" Click="BtnBSearch_Click" ToolTip="Uses Binary Search to find item"/>
         </StackPanel>
 
@@ -56,7 +56,7 @@
         <TextBlock Text="Input:" Margin="10,71,10,302" FontSize="15" Foreground="White" IsHitTestVisible="False"/>
         <TextBlock Text="List Of Data:" HorizontalAlignment="Center" Margin="25,11" FontSize="15" Grid.Column="1" Foreground="White"/>
         <ListBox x:Name="AstroDataLBX" Margin="10,30,10,10" Grid.Column="1" Width="250" Height="353" Background="White" BorderBrush="Black" Foreground="Black" FontSize="15"/>
-        <Button x:Name="InputBtn" Content="Enter" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-181,11,0" Click="BtnInput_Click"/>
-        <Button x:Name="CalcBtn" Content="Calculate" Width="280" Margin="5,-30,0,0" Height="25" Click="BtCalcClick_Click"/>
+        <Button x:Name="InputBtn" Content="Enter" Width="50" Height="30" HorizontalAlignment="Right" Margin="0,-181,11,0" Click="BtnInput_Click" ToolTip="Replaces data at the selected index"/>
+        <Button x:Name="CalcBtn" Content="Calculate" Width="280" Margin="5,-30,0,0" Height="25" Click="BtCalcClick_Click" ToolTip="Calculates the: Mid-Extreme, Mode, Average, Range"/>
     </Grid>
 </Window>

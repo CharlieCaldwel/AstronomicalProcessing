@@ -1,9 +1,9 @@
-﻿// Charlie Caldwell, CharliesTeam, Sprint 1
-// 11/09/2025
-// Version: 1
+﻿//Charlie Caldwell, CharliesTeam, Sprint 2
+// 25/09/2025
+// Version: 1.5
 // Astronomical Processing
 // Program allows you to enter 24 random integers and sort them / modify them / search for a integer
-// To sort it uses a bubble sort, to search it uses a binary search method
+// To sort it uses a bubble sort / Sequential Search, to search it uses a binary search method, it displays Mode, Mid-Extreme, Average, Range
 
 
 
@@ -39,6 +39,7 @@ namespace AstronomicalProcessing
             if(AstroDataLBX.Items.Count >= 23) // clears it so the ListBox cant go over 24 integers
             {
                 AstroDataLBX.Items.Clear();
+                clearCalc();
             }
             if (!(AstroDataLBX.Items.Count >= 24)) // fills the list with random integers
             {
@@ -184,7 +185,7 @@ namespace AstronomicalProcessing
             }
         }
 
-        public void sort()
+        public void sort() // Sorts all the numbers Smallest to Largest
         {
             if (AstroDataLBX.Items.Count != 0)
             {
@@ -206,7 +207,7 @@ namespace AstronomicalProcessing
             }
         } // end sort
 
-        private void BtnLSearch_Click(object sender, RoutedEventArgs e)
+        private void BtnLSearch_Click(object sender, RoutedEventArgs e) // searches using sequential search
         {
             if (SearchBox.Text.Length > 0) {
                 for (int i = 0; i < AstroDataLBX.Items.Count; i++)
@@ -225,17 +226,68 @@ namespace AstronomicalProcessing
             }
         } // end BtnLSearch_Click
 
-        private void BtCalcClick_Click(object sender, RoutedEventArgs e)
+        private void BtCalcClick_Click(object sender, RoutedEventArgs e) // Calculates all the functions at once
         {
             if (AstroDataLBX.Items.Count > 0)
             {
+                // Finds the mid-extreme
                 sort();
-                int max = int.Parse(AstroDataLBX.Items[^1].ToString());
-                int min = int.Parse(AstroDataLBX.Items[0].ToString());
-                double mid = ((double)max + min) / 2;
+                double max = double.Parse(AstroDataLBX.Items[^1].ToString());
+                double min = double.Parse(AstroDataLBX.Items[0].ToString());
+                double mid = (max + min) / 2;
+                mid = Math.Round(mid, 2);
                 MidEx.Text = mid.ToString();
+
+                // Finds the mode
+                int modeCount = 0;
+                int mode = 0;
+                for (int i = 0; i < AstroDataLBX.Items.Count; i++)
+                {
+                    int temp = 0;
+                    int tempMode = int.Parse(AstroDataLBX.Items [i].ToString());
+                    for (int j = 0; j < AstroDataLBX.Items.Count; j++)
+                    {
+                        if(j != i)
+                        {
+                            if (int.Parse(AstroDataLBX.Items[j].ToString()) == tempMode)
+                            {
+                                temp ++;
+                            }
+                            if(temp >= modeCount)
+                            {
+                                mode = int.Parse(AstroDataLBX.Items[i].ToString());
+                                modeCount++;
+                            }
+                        }
+                    }
+                    Mode.Text = mode.ToString();
+                }
+
+                // Finds the average
+                double count = 0;
+                for(int i = 0; i < AstroDataLBX.Items.Count; ++i)
+                {
+                    count += double.Parse(AstroDataLBX.Items[i].ToString());
+                }
+                count = count / AstroDataLBX.Items.Count;
+                count = Math.Round(count, 2);
+                Average.Text = count.ToString();
+
+                // Finds the range
+                double range = max - min;
+                range = Math.Round(range, 2);
+                Range.Text = range.ToString();
+
             }
 
         }// end BtCalcClick_CLick
+
+        public void clearCalc()
+        {
+            Range.Text = "";
+            MidEx.Text = "";
+            Average.Text = "";
+            Mode.Text = "";
+        }
     }
 }
